@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: DummyVoterAuthenticatorSimulator
+
+  datasource:
+    url: ${SIMULATOR_DATASOURCE_URL}
+    username: ${SIMULATOR_DATASOURCE_USERNAME}
+    password: ${SIMULATOR_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  mail:
+    host: ${SIMULATOR_MAIL_HOST:smtp.gmail.com}
+    port: ${SIMULATOR_MAIL_PORT:587}
+    username: ${SIMULATOR_MAIL_USERNAME}
+    password: ${SIMULATOR_MAIL_PASSWORD}
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+server:
+  port: ${SERVER_PORT:8081}
+
+app:
+  auth:
+    jwt-secret: ${SIMULATOR_JWT_SECRET}
+    password-pepper: ${SIMULATOR_PASSWORD_PEPPER}
+    admin-username: ${SIMULATOR_ADMIN_USERNAME:admin}
+    admin-password: ${SIMULATOR_ADMIN_PASSWORD}

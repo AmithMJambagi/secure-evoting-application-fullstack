@@ -1,0 +1,54 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: secure-evoting-backend
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+security:
+  jwt:
+    token:
+      secret-key: ${SECURITY_JWT_TOKEN_SECRET_KEY}
+      expire-length: ${SECURITY_JWT_TOKEN_EXPIRE_LENGTH:600000}
+      admin:
+        expire-length: ${SECURITY_JWT_TOKEN_ADMIN_EXPIRE_LENGTH:3600000}
+
+app:
+  simulator:
+    url: ${APP_SIMULATOR_URL}
+    jwt-secret: ${APP_SIMULATOR_JWT_SECRET}
+
+  admin:
+    username: ${APP_ADMIN_USERNAME:SysAdmin}
+    password: ${APP_ADMIN_PASSWORD}
+
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+  ballot:
+    secret: ${BALLOT_SIGNING_SECRET}
+    algorithm: ${APP_BALLOT_ALGORITHM:HmacSHA256}
+
+logging:
+  level:
+    root: INFO
+    com.secure.evoting: DEBUG
+    org.hibernate.SQL: DEBUG
