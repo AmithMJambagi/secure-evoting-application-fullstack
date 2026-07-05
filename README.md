@@ -144,8 +144,8 @@ For the frontend, configure the API base URL using a Vite-compatible environment
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd Fullstack_secure_evoting_application_gitpublicversion
+git clone https://github.com/AmithMJambagi/secure-digital-voting-system.git
+cd secure-digital-voting-system
 ```
 
 ### 2. Start the Backend
@@ -172,6 +172,8 @@ npm run dev
 
 ## Testing
 
+The repository currently includes basic Spring Boot smoke tests for the backend services. These tests verify that the application context loads successfully and are not a full unit-test suite.
+
 Run backend tests with:
 
 ```bash
@@ -185,6 +187,8 @@ Run frontend validation with:
 cd evoting_frontend
 npm run build
 ```
+
+If you want, these can be expanded later with controller, service, and component-level tests.
 
 ## Security Notes
 
