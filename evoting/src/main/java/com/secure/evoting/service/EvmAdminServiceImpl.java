@@ -127,48 +127,6 @@ public class EvmAdminServiceImpl {
 
         return responseMatrix;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //    @Transactional(readOnly = true)
-//    public Map<String, Object> computeConstituencyMetrics(String constituencyCode) {
-//        this.auditBallotBox();
-//
-//        // REFACTORED LINE: Now cleanly routes through the Admin Repository matrix layer
-//        List<Object[]> queryRows = evmAdminRepository.findVoteCountsGroupedByCandidateAndConstituency(constituencyCode);
-//
-//        Map<String, Long> candidateStandings = new HashMap<>();
-//        String dynamicWinner = "No Ballots Cast";
-//        long maximumVotes = -1;
-//
-//        for (Object[] row : queryRows) {
-//            String candidateName = (String) row[0];
-//            Long totalVotes = (Long) row[1];
-//            candidateStandings.put(candidateName, totalVotes);
-//
-//            if (totalVotes > maximumVotes) {
-//                maximumVotes = totalVotes;
-//                dynamicWinner = candidateName;
-//            }
-//        }
-//
-//        Map<String, Object> responseMatrix = new HashMap<>();
-//        responseMatrix.put("standings", candidateStandings);
-//        responseMatrix.put("winner", dynamicWinner);
-//        responseMatrix.put("winningMargin", maximumVotes > -1 ? maximumVotes : 0);
-//
-//        return responseMatrix;
-//    }
 
     @Transactional(readOnly = true)
     public List<Constituency> getAllRegisteredConstituencies() {
@@ -191,62 +149,7 @@ public class EvmAdminServiceImpl {
         userRepository.deleteAllInBatch();
         constituencyRepository.deleteAllInBatch();
     }
-    
-//    @Transactional(readOnly = true)
-//    public List<Map<String, String>> getDetailedTamperReport() {
-//        List<Map<String, String>> tamperReportList = new ArrayList<>();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        Map<String, String> nameCache = new HashMap<>();
-//
-//        int pageSize = 1000;
-//        Pageable pageable = PageRequest.of(0, pageSize);
-//        Page<BallotBox> votePage;
-//
-//        do {
-//            votePage = ballotBoxRepository.findAll(pageable);
-//            
-//            for (BallotBox vote : votePage.getContent()) {
-//                if (!verifyBallotIntegrity(vote)) {
-//                    Map<String, String> tamperDetails = new HashMap<>();
-//                    String code = vote.getConstituencyCode() != null ? vote.getConstituencyCode() : "UNKNOWN_CODE";
-//                    
-//                    String name = nameCache.computeIfAbsent(code, cCode -> 
-//                        constituencyRepository.findById(cCode)
-//                            .map(Constituency::getConstituencyName)
-//                            .orElse("Unknown District Area")
-//                    );
-//
-//                    String timestampStr = vote.getCastAt() != null 
-//                    	    ? vote.getCastAt().atZone(java.time.ZoneId.systemDefault()).format(formatter) 
-//                    	    : "N/A";
-//                    
-//                    tamperDetails.put("constituencyCode", code);
-//                    tamperDetails.put("constituencyName", name);
-//                    tamperDetails.put("timestamp", timestampStr);
-//                    tamperDetails.put("ballotId", vote.getId() != null ? String.valueOf(vote.getId()) : "N/A");
-//
-//                    tamperReportList.add(tamperDetails);
-//                }
-//            }
-//            
-//            pageable = pageable.next();
-//        } while (votePage.hasNext());
-//
-//        return tamperReportList;
-//    }
-//
-//	public List<Candidate> getAllByConstituency(Constituency constituency) {
-//		// TODO Auto-generated method stub
-//		List<Candidate> list = new ArrayList<Candidate>();
-//		try {
-//			list = candidateRepository.findByConstituencyCode(constituency.getConstituencyCode());
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
-//		return list;
-//	}
-    
+
     @Transactional(readOnly = true)
     public List<Map<String, String>> getDetailedTamperReport() {
         List<Map<String, String>> tamperReportList = new ArrayList<>();
@@ -338,7 +241,6 @@ public class EvmAdminServiceImpl {
 
 
 	public List<Candidate> addCandidates(List<Candidate> candidates) {
-		// TODO Auto-generated method stub
 		if(candidates!=null) {
 			for(Candidate candidate : candidates) {
 				candidateRepository.save(candidate);

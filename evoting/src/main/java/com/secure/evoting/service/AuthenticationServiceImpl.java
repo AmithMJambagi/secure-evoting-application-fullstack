@@ -14,8 +14,8 @@ import com.secure.evoting.repository.UserRepository;
 import com.secure.evoting.security.JwtTokenProvider;
 
 import lombok.val;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -36,7 +36,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final RestTemplate restTemplate;
 
-    // Simulator endpoint is injected from the shared application configuration.
+    // URL pointing to your standalone Dummy Simulator port 
     @Value("${app.simulator.url}")
     private String simulatorUrl;
     
@@ -50,26 +50,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.tokenProvider=tokenProvider;
     }
 
-//    @Override
-//    public void requestOTP(String voterId, String password) {
-//        String url = simulatorUrl + "/request-otp";
-//        
-//        // Match the exact DTO structure your simulator expects
-//        OTPRequest simulatorRequest = new OTPRequest();
-//        simulatorRequest.setVoterId(voterId);
-//        simulatorRequest.setPassword(password);
-//
-//        try {
-//            restTemplate.postForEntity(url, simulatorRequest, Void.class);
-//        } catch (HttpClientErrorException | HttpServerErrorException ex) {
-//            // Caches 401 (Wrong Password), 403 (Ineligible), etc., and extracts the simulator error body text
-//            String responseBody = ex.getResponseBodyAsString();
-//            // Fallback to default message if body is blank
-//            String message = responseBody.isBlank() ? "Authentication failed at simulator" : responseBody;
-//            
-//            throw new SimulatorAuthenticationException(ex.getStatusCode(), message);
-//        }
-//    }
+
     
     private String generateSecureSHA256(String rawVoterId) {
         try {
@@ -118,71 +99,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
     
-//    public void requestOTP(String voterId, String password) {
-//        
-//        // 1. Initial short-circuit check
-//        String computedHash = generateSecureSHA256(voterId);
-//        Optional<Boolean> hasVotedOpt = userRepository.checkHasVotedByHash(computedHash);
-//        
-//        if (hasVotedOpt.isPresent() && hasVotedOpt.get()) {
-//            throw new ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Thanks for voting!");
-//        }
-//
-//        // 2. Prepare network pipeline payload to simulator
-//        String url = simulatorUrl + "/request-otp";
-//        
-//        OTPRequest simulatorRequest = new OTPRequest();
-//        simulatorRequest.setVoterId(voterId);
-//        simulatorRequest.setPassword(password);
-//
-//        try {
-//            restTemplate.postForEntity(url, simulatorRequest, Void.class);
-//        } catch (HttpStatusCodeException ex) {
-//            String responseBody = ex.getResponseBodyAsString();
-//            String guiMessage = "Authentication failed at simulator"; // Fallback default
-//
-//            // 3. Extract the detailed simulator message key out of the incoming payload JSON
-//            if (responseBody != null && !responseBody.isBlank()) {
-//                try {
-//                    JsonNode root = new ObjectMapper().readTree(responseBody);
-//                    if (root.has("message")) {
-//                        guiMessage = root.get("message").asText(); 
-//                    }
-//                } catch (Exception e) {
-//                    guiMessage = responseBody.trim(); 
-//                }
-//            }
-//
-//            // 4. Propagate out of the service layer identically to "Thanks for voting!"
-//            throw new ResponseStatusException(ex.getStatusCode(), guiMessage);
-//        }
-//    }
     
-    
-    
-    
-//    @Override
-//    public JwtResponse verifyOTP(String voterId, String otpCode) {
-//        String url = simulatorUrl + "/verify-otp";
-//
-//        OTPVerificationRequest simulatorVerifyRequest = new OTPVerificationRequest();
-//        simulatorVerifyRequest.setVoterId(voterId);
-//        simulatorVerifyRequest.setOtp(otpCode);
-//
-//        try {
-//            ResponseEntity<JwtResponse> response = restTemplate.postForEntity(url, simulatorVerifyRequest, JwtResponse.class);
-//            
-//            // TODO: Extract information from the response.getBody() token to provision local database User/VoterIdentity entities if needed.
-//            
-//            return response.getBody();
-//        } catch (HttpClientErrorException | HttpServerErrorException ex) {
-//            String responseBody = ex.getResponseBodyAsString();
-//            String message = responseBody.isBlank() ? "OTP Verification failed" : responseBody;
-//            
-//            throw new SimulatorAuthenticationException(ex.getStatusCode(), message);
-//        }
-//    }
-    
+
     @Override
     @Transactional
     public JwtResponse verifyOTP(String voterId, String otpCode) {

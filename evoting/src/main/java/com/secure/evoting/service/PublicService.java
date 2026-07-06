@@ -17,14 +17,12 @@ public class PublicService {
 	ConstituencyRepository constituencyRepository;
 	 
 	 public List<Constituency> getAllConstituency() {
-		// TODO Auto-generated method stub
-		 List<Constituency> list = new ArrayList<Constituency>();
-		 try {
-			list=constituencyRepository.findAll();
+		List<Constituency> list = new ArrayList<>();
+		try {
+			list = constituencyRepository.findAll();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
-			return new ArrayList<Constituency>();
+			return new ArrayList<>();
 		}
 		return list;
 	 }
