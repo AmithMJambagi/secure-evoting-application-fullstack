@@ -27,61 +27,7 @@ public class OTPService {
 	private final Map<Long, OTPDetails> otpStore =
 	        new ConcurrentHashMap<>();
 	private final SecureRandom random = new SecureRandom();
-//	public String generateOTP(Long voterId) {
-//		
-//		
-//		String plainOtp = String.valueOf(100000+random.nextInt(900000));
-//		String otp=passwordEncoder.encode(plainOtp);
-//		OTPDetails details = OTPDetails.builder()
-//		        .otp(otp)
-//		        .expiryTime(LocalDateTime.now().plusMinutes(5))
-//		        .attempts(0)
-//		        .build();
-//		otpStore.put(voterId,details);
-//		return plainOtp;
-//	}
-//	public String generateOTP(Long voterId) {
-//
-//	    OTPDetails existingOtp = otpStore.get(voterId);
-//
-//	    // Existing OTP still valid
-//	    if (existingOtp != null) {
-//
-//	        // Session expired
-//	        if (LocalDateTime.now().isAfter(existingOtp.getExpiryTime())) {
-//	            otpStore.remove(voterId);
-//	            throw new OtpSessionExpiredException();
-//	        }
-//
-//	        // Too early to resend
-//	        if (LocalDateTime.now().isBefore(existingOtp.getNextResendTime())) {
-//	            throw new ResendOtpNotAllowedException();
-//	        }
-//	    }
-//
-//	    
-//	    String plainOtp = String.valueOf(100000 + random.nextInt(900000));
-//
-//	    String encodedOtp = passwordEncoder.encode(plainOtp);
-//
-//	    // Preserve original expiry if this is a resend
-//	    LocalDateTime expiry = (existingOtp == null)
-//	            ? LocalDateTime.now().plusMinutes(5)
-//	            : existingOtp.getExpiryTime();
-//
-//	    OTPDetails details = OTPDetails.builder()
-//	            .otp(encodedOtp)
-//	            .expiryTime(expiry)
-//	            .nextResendTime(LocalDateTime.now().plusSeconds(150))
-//	            .attempts(0)
-//	            .build();
-//
-//	    otpStore.put(voterId, details);
-//
-//	    return plainOtp;
-//	}
-	
-	
+
 	public String generateOTP(Long voterId) {
 
 	    // Validate voter exists

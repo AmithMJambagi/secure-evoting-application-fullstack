@@ -19,9 +19,6 @@ import com.nimbusds.jose.crypto.DirectEncrypter;
 import com.nimbusds.jwt.EncryptedJWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-
 @Service
 public class JwtService {
     private final String secret;
@@ -29,30 +26,7 @@ public class JwtService {
     public JwtService(@Value("${app.auth.jwt-secret}") String secret) {
         this.secret = secret;
     }
-//	 old implementation without encryption
-//	 private final String secret = "";
-//
-//    private final Key key = new SecretKeySpec(
-//            SECRET.getBytes(),
-//            SignatureAlgorithm.HS256.getJcaName());
-//
-//    public String generateToken(Voter voter) {
-//
-//        return Jwts.builder()
-//                .setSubject(String.valueOf(voter.getVoterId()))
-//                .claim("eligible", voter.isEligibleToVote())
-//                .claim("constituencyCode",
-//                        voter.getConstituencyCode())
-//                .claim("email", voter.getEmail())
-//                .claim("firstName", voter.getFirstName())
-//                .claim("lastName", voter.getLastName())
-//                .setIssuer("Dummy-Voter-Authenticator ECI")
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date(System.currentTimeMillis() + 1800000))
-//                .signWith(key, SignatureAlgorithm.HS512)
-//                .compact();
-//    }
-	
+
 	public String generateToken(Voter voter) {
 	    // Reconstruct the key ensuring the key length meets cryptographic requirements
 	    Key sharedKey = new SecretKeySpec(secret.getBytes(), "AES");

@@ -21,24 +21,38 @@ A full-stack, multi-tier e-voting application designed to demonstrate secure arc
 This repository showcases a secure and extensible e-voting platform that separates concerns across three main components:
 
 - a core backend for business logic and voting operations,
-- a React-based frontend for user interaction,
+- a React-based frontend for voter and administrator interaction,
 - and an authentication simulator service for secure verification workflows.
 
 The project is built with an emphasis on:
 
 - secure authentication and authorization,
+- tamper-aware ballot integrity checks,
 - environment-driven configuration,
 - decoupled service responsibilities,
 - and maintainable code structure for real-world deployment scenarios.
 
 ## Key Features
 
-- Secure authentication flow using JWT-based patterns
-- Role-aware admin and user interactions
+- Secure voter authentication flow using JWT-based patterns and OTP verification
+- Tamper-proof e-voting ballot box logic with integrity checks and anomaly reporting
+- Admin panel for viewing results, browsing candidates by constituency, and running security integrity scans
+- Protected administrative actions such as tamper-log review and controlled zeroization workflows
 - Externalized configuration for secrets, URLs, and environment-specific values
-- Decoupled frontend, backend, and simulator services
-- Clean architecture suitable for demos, interviews, and further extension
-- Tamper-aware ballot integrity handling through configurable signing mechanisms
+- Decoupled frontend, backend, and simulator services for easier maintenance and extension
+- Clean architecture suitable for demos, interviews, and further development
+
+## Admin Panel & Security Highlights
+
+The admin experience is designed to feel like a real election operations console:
+
+- View constituency-based results and standings
+- Browse candidates by region and constituency
+- Run integrity verification routines to inspect ballot-box anomalies
+- Review tamper logs and security alerts in a structured format
+- Use a confirmation-based zeroization workflow for sensitive administrative actions
+
+These capabilities make the project a strong example of how secure, auditable election workflows can be modeled in a modern web application.
 
 ## Architecture
 
@@ -144,7 +158,7 @@ For the frontend, configure the API base URL using a Vite-compatible environment
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/AmithMJambagi/secure-digital-voting-system.git
+git clone https://github.com/AmithMJambagi/secure-evoting-application-fullstack.git
 cd secure-digital-voting-system
 ```
 

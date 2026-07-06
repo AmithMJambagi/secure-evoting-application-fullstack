@@ -61,7 +61,6 @@ public class VoterService {
     }
 
 	public List<Voter> addMultipleVoters(List<Voter> voters) {
-		// TODO Auto-generated method stub
 		if(voters!=null) {
 			for(Voter voter:voters) {
 				voter.setPassword(
