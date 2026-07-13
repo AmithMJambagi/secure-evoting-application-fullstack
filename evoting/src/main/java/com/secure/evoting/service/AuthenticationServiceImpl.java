@@ -142,7 +142,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 throw new SimulatorAuthenticationException(HttpStatus.FORBIDDEN, "User is not legally eligible to vote.");
             }
 
-            // 3. Complete the Anonymized Bookkeeping Layout
+            // 3. Completing the Anonymized Bookkeeping Layout
             String computedHash = generateSecureSHA256(voterId);
             User user = userRepository.findByVoterIdHash(computedHash).orElse(null);
 
